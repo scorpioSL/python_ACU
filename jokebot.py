@@ -112,19 +112,27 @@ class ProgramGUI:
             font = ("Arial", 14)
             self.users_rating = tk.StringVar()
 
+            # spacer
+            spacer = tk.Label(self.main_frame, text=" ", font=font)
+            spacer.grid(row=3,column=0,sticky="ew")
+
             # Create the label and entry widgets
             users_rating_label = tk.Label(self.main_frame, text="Your Rating: ", font=font)
-            users_rating_label.grid(row=3,column=0,sticky="ew")
+            users_rating_label.grid(row=3,column=1,sticky="e")
             users_rating_entry = tk.Entry(self.main_frame, textvariable=self.users_rating, width=2)
-            users_rating_entry.grid(row=3,column=1,sticky="ew")
+            users_rating_entry.grid(row=3,column=2,sticky="s")
             users_rating_entry.focus()
 
             # Create the submit button
             rate_button = tk.Button(self.main_frame, text="Submit", font=font, command=lambda: self.rateJoke())
-            rate_button.grid(row=3,column=2,sticky="ew")
+            rate_button.grid(row=3,column=3,sticky="w")
+
+            # spacer
+            spacer2 = tk.Label(self.main_frame, text=" ", font=font)
+            spacer2.grid(row=4,column=0,sticky="ew")
 
 
-            self.main_frame.grid_columnconfigure((0, 4), weight=1)
+            self.main_frame.grid_columnconfigure((0,4), weight=1)
 
             # Pack the main frame
             self.main_frame.pack(anchor="center", expand=True)
@@ -156,6 +164,7 @@ class ProgramGUI:
                 self.clearFrame()
                 self.showJoke()
             except ValueError:
+                self.users_rating.set("")
                 messagebox.showerror("Error", "Invalid rating. Enter an integer between 1 and 5.")
 
     def clearFrame(self):
